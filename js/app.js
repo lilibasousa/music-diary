@@ -90,6 +90,7 @@ function router() {
   switch (path) {
     case 'hoje': return renderHome();
     case 'estilo': return renderGenrePicker();
+    case 'epoca': return renderEraPicker(params);
     case 'ouvir': return renderPlayer(params);
     case 'diario': return renderDiary();
     case 'favoritos': return renderFavorites();
@@ -111,7 +112,10 @@ function renderHome() {
   const body = entry ? `
     <div class="song-card">
       <div class="song-card-top">
-        <span class="genre-chip">${escapeHtml(genreLabel(entry.genre))}</span>
+        <div>
+          <span class="genre-chip">${escapeHtml(genreLabel(entry.genre))}</span>
+          ${entry.era ? `<span class="era-chip">${escapeHtml(eraChipLabel(entry.era))}</span>` : ''}
+        </div>
         ${entry.favorite ? `<span class="entry-heart" style="width:20px;height:20px;">${ICONS.heartFilled}</span>` : ''}
       </div>
       <div class="song-title">${escapeHtml(entry.title)}</div>
@@ -148,7 +152,7 @@ function renderHome() {
 /* ---------- Genre picker ---------- */
 function renderGenrePicker() {
   const cards = GENRES.map((g) => `
-    <a class="genre-card" href="#/ouvir?genre=${g.id}">
+    <a class="genre-card" href="#/epoca?genre=${g.id}">
       <div class="genre-name">${escapeHtml(g.label)}</div>
       <div class="genre-desc">${escapeHtml(g.desc)}</div>
     </a>`).join('');
@@ -161,7 +165,34 @@ function renderGenrePicker() {
         <span class="spacer-36"></span>
       </div>
       <div class="scroll-body">
-        <p class="hint-text" style="margin:8px 0 16px;">Escolhe um estilo e a app sugere logo uma música para ouvirem juntos.</p>
+        <p class="hint-text" style="margin:8px 0 16px;">Escolhe um estilo e a seguir a época da música.</p>
+        <div class="genre-grid">${cards}</div>
+      </div>
+    </div>`;
+}
+
+/* ---------- Era picker ---------- */
+function renderEraPicker(params) {
+  const genreId = params.get('genre');
+  if (!GENRES.find((g) => g.id === genreId)) {
+    location.hash = '#/estilo';
+    return;
+  }
+  const cards = ERAS.map((e) => `
+    <a class="genre-card" href="#/ouvir?genre=${genreId}&era=${e.id}">
+      <div class="genre-name">${escapeHtml(e.label)}</div>
+      <div class="genre-desc">${escapeHtml(e.desc)}</div>
+    </a>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <div class="screen">
+      <div class="topbar spread">
+        <a href="#/estilo" class="back-btn">${ICONS.arrowLeft}</a>
+        <div class="topbar-title">De que época?</div>
+        <span class="spacer-36"></span>
+      </div>
+      <div class="scroll-body">
+        <p class="hint-text" style="margin:8px 0 16px;">${escapeHtml(genreLabel(genreId))} — escolhe a época e a app sugere logo uma música para ouvirem juntos.</p>
         <div class="genre-grid">${cards}</div>
       </div>
     </div>`;
@@ -172,34 +203,42 @@ let playerState = null;
 
 function renderPlayer(params) {
   const genreId = params.get('genre');
+  const eraId = params.get('era');
   if (!GENRES.find((g) => g.id === genreId)) {
     location.hash = '#/estilo';
     return;
   }
-  if (!playerState || playerState.genre !== genreId) {
+  if (!ERAS.find((e) => e.id === eraId)) {
+    location.hash = `#/epoca?genre=${genreId}`;
+    return;
+  }
+  if (!playerState || playerState.genre !== genreId || playerState.era !== eraId) {
     const recent = Storage.recentTitlesForGenre(genreId, 5);
-    const song = pickSong(genreId, recent, null);
-    playerState = { genre: genreId, song, rating: 0, comment: '', favorite: false };
+    const song = pickSong(genreId, eraId, recent, null);
+    playerState = { genre: genreId, era: eraId, song, rating: 0, comment: '', favorite: false };
   }
   drawPlayerScreen();
 }
 
 function drawPlayerScreen() {
-  const { genre, song, rating, comment, favorite } = playerState;
+  const { genre, era, song, rating, comment, favorite } = playerState;
+  const noEraMatch = !eraHasSongs(genre, era);
 
   document.getElementById('app').innerHTML = `
     <div class="screen">
       <div class="topbar spread">
-        <a href="#/estilo" class="back-btn">${ICONS.arrowLeft}</a>
+        <a href="#/epoca?genre=${genre}" class="back-btn">${ICONS.arrowLeft}</a>
         <div class="topbar-title">${escapeHtml(genreLabel(genre))}</div>
         <span class="spacer-36"></span>
       </div>
       <div class="scroll-body">
         <div class="song-card">
           <span class="genre-chip">${escapeHtml(genreLabel(genre))}</span>
+          <span class="era-chip">${escapeHtml(eraChipLabel(song.era))}</span>
           <div class="song-title">${escapeHtml(song.title)}</div>
           <div class="song-artist">${escapeHtml(song.artist)}</div>
         </div>
+        ${noEraMatch ? `<p class="hint-text" style="margin:12px 0 0;">Ainda não temos sugestões de ${escapeHtml(eraLabel(era)).toLowerCase()} neste estilo — escolhemos outra época deste estilo.</p>` : ''}
         <p class="hint-text" style="margin:14px 0;">Toquem a música num destes sítios. Quando terminarem de ouvir, voltem aqui para avaliar.</p>
         <div class="listen-buttons">
           <a class="btn-primary" href="${youtubeSearchUrl(song)}" target="_blank" rel="noopener">${ICONS.external} Tocar no YouTube</a>
@@ -231,7 +270,7 @@ function drawPlayerScreen() {
 
   document.getElementById('shuffle-btn').addEventListener('click', () => {
     const recent = Storage.recentTitlesForGenre(playerState.genre, 5);
-    playerState.song = pickSong(playerState.genre, recent, playerState.song.title);
+    playerState.song = pickSong(playerState.genre, playerState.era, recent, playerState.song.title);
     playerState.rating = 0;
     playerState.comment = '';
     playerState.favorite = false;
@@ -249,6 +288,7 @@ function drawPlayerScreen() {
     Storage.upsertEntry({
       date: todayLocalIso(),
       genre: playerState.genre,
+      era: playerState.song.era,
       title: playerState.song.title,
       artist: playerState.song.artist,
       rating: playerState.rating,
@@ -275,7 +315,7 @@ function entryRowHtml(e) {
       </div>
       <div class="entry-info">
         <div class="entry-title">${escapeHtml(e.title)}</div>
-        <div class="entry-artist">${escapeHtml(e.artist)}</div>
+        <div class="entry-artist">${escapeHtml(e.artist)}${e.era ? ` · ${escapeHtml(eraChipLabel(e.era))}` : ''}</div>
         <div class="entry-meta">
           ${starDisplayHtml(e.rating)}
           ${e.favorite ? `<span class="entry-heart">${ICONS.heartFilled}</span>` : ''}
@@ -341,6 +381,7 @@ function renderEntryDetail(params) {
       <div class="scroll-body">
         <div class="song-card">
           <span class="genre-chip">${escapeHtml(genreLabel(entry.genre))}</span>
+          ${entry.era ? `<span class="era-chip">${escapeHtml(eraChipLabel(entry.era))}</span>` : ''}
           <div class="song-title">${escapeHtml(song.title)}</div>
           <div class="song-artist">${escapeHtml(song.artist)}</div>
         </div>

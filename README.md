@@ -13,9 +13,10 @@ App web para o ritual de mostrar uma música nova ao teu filho todos os dias ant
 ## Como funciona
 
 1. **Escolher o estilo** — Infantil, Bandas sonoras, Pop, Rock, Clássica, Jazz, Eletrónica ou Latina.
-2. **Sugestão de música** — a app escolhe uma música desse estilo (evitando repetir as últimas usadas) e mostra dois botões para a tocar: **YouTube** ou **Spotify**, que abrem a busca dessa música na app/site respetivo. Há também um botão para pedir outra sugestão do mesmo estilo.
-3. **Avaliar** — depois de ouvirem, dão de 1 a 5 estrelas, podem escrever um comentário e marcar a música como favorita.
-4. **Diário** — cada dia fica registado (uma música por dia; escolher outra substitui a do dia). O histórico completo fica em "Diário", e as músicas marcadas com coração ficam em "Favoritos".
+2. **Escolher a época** — Anos 60, 70, 80, 90, Y2K (2000s), Anos 2010 ou Atual. Se não houver nenhuma música dessa época no estilo escolhido, a app avisa e sugere outra época do mesmo estilo.
+3. **Sugestão de música** — a app escolhe uma música desse estilo e época (evitando repetir as últimas usadas) e mostra dois botões para a tocar: **YouTube** ou **Spotify**, que abrem a busca dessa música na app/site respetivo. Há também um botão para pedir outra sugestão.
+4. **Avaliar** — depois de ouvirem, dão de 1 a 5 estrelas, podem escrever um comentário e marcar a música como favorita.
+5. **Diário** — cada dia fica registado (uma música por dia; escolher outra substitui a do dia). O histórico completo fica em "Diário", e as músicas marcadas com coração ficam em "Favoritos".
 
 ## Porque não toca a música dentro da app
 
@@ -26,6 +27,7 @@ Tocar uma música específica dentro da página, sem pedir nada ao utilizador, e
 1. **Dados guardados só no telemóvel/browser** (`localStorage`), sem servidor nem login. Se limpares os dados do browser, perdes o histórico — não há sincronização entre dispositivos.
 2. **Uma entrada por dia**: escolher uma nova música substitui a avaliação desse dia; dias diferentes ficam sempre no histórico.
 3. **Sugestões variadas**: a lista de músicas por estilo evita repetir as últimas usadas nesse estilo antes de repetir.
+4. **Época por música, não por app**: algumas músicas (ex.: canções de embalar tradicionais, clássicos instrumentais) são atemporais e aparecem em qualquer época escolhida.
 4. **Sem dependências, sem `npm install`, sem build.** Os únicos pedidos à internet são as fontes (Google Fonts) e, ao tocar, o YouTube/Spotify — se não houver internet, a app continua a funcionar com uma fonte alternativa do sistema (a escolha/avaliação de músicas não precisa de rede).
 
 ## Estrutura
@@ -37,10 +39,10 @@ music-diary/
     style.css
   js/
     storage.js   — leitura/escrita das entradas do diário (localStorage)
-    songs.js     — lista de músicas por estilo + construção dos links de YouTube/Spotify
+    songs.js     — lista de músicas por estilo e época + construção dos links de YouTube/Spotify
     app.js       — ecrãs, navegação e lógica da app
 ```
 
 ## Testado
 
-Fluxo completo verificado num browser automatizado: escolher estilo, sugestão de música, avaliar e guardar, listar no Diário, listar em Favoritos, editar avaliação de um dia já guardado e apagar um registo — sem erros de JavaScript.
+Fluxo completo verificado num browser automatizado: escolher estilo, escolher época (incluindo o caso sem correspondência exata, com aviso e sugestão de outra época), sugestão de música, avaliar e guardar, listar no Diário, listar em Favoritos, editar avaliação de um dia já guardado e apagar um registo — sem erros de JavaScript.
