@@ -213,8 +213,8 @@ function renderPlayer(params) {
     return;
   }
   if (!playerState || playerState.genre !== genreId || playerState.era !== eraId) {
-    const recent = Storage.recentTitlesForGenre(genreId, 5);
-    const song = pickSong(genreId, eraId, recent, null);
+    const used = Storage.usedTitlesForGenre(genreId);
+    const song = pickSong(genreId, eraId, used, null);
     playerState = { genre: genreId, era: eraId, song, rating: 0, comment: '', favorite: false };
   }
   drawPlayerScreen();
@@ -223,6 +223,7 @@ function renderPlayer(params) {
 function drawPlayerScreen() {
   const { genre, era, song, rating, comment, favorite } = playerState;
   const noEraMatch = !eraHasSongs(genre, era);
+  const canShuffle = hasAlternative(genre, era, song.title);
 
   document.getElementById('app').innerHTML = `
     <div class="screen">
@@ -244,7 +245,7 @@ function drawPlayerScreen() {
           <a class="btn-primary" href="${youtubeSearchUrl(song)}" target="_blank" rel="noopener">${ICONS.external} Tocar no YouTube</a>
           <a class="btn-secondary" href="${spotifySearchUrl(song)}" target="_blank" rel="noopener">${ICONS.external} Ouvir no Spotify</a>
         </div>
-        <button class="btn-ghost" id="shuffle-btn">${ICONS.shuffle} Sugerir outra música deste estilo</button>
+        ${canShuffle ? `<button class="btn-ghost" id="shuffle-btn">${ICONS.shuffle} Sugerir outra música deste estilo</button>` : ''}
 
         <div class="section-divider" style="margin:18px 0;"></div>
 
@@ -268,14 +269,17 @@ function drawPlayerScreen() {
       </div>
     </div>`;
 
-  document.getElementById('shuffle-btn').addEventListener('click', () => {
-    const recent = Storage.recentTitlesForGenre(playerState.genre, 5);
-    playerState.song = pickSong(playerState.genre, playerState.era, recent, playerState.song.title);
-    playerState.rating = 0;
-    playerState.comment = '';
-    playerState.favorite = false;
-    drawPlayerScreen();
-  });
+  const shuffleBtn = document.getElementById('shuffle-btn');
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener('click', () => {
+      const used = Storage.usedTitlesForGenre(playerState.genre);
+      playerState.song = pickSong(playerState.genre, playerState.era, used, playerState.song.title);
+      playerState.rating = 0;
+      playerState.comment = '';
+      playerState.favorite = false;
+      drawPlayerScreen();
+    });
+  }
   wireStarRating('rate-stars', rating, (v) => { playerState.rating = v; });
   wireFavoriteSwitch('fav-switch', favorite, (v) => { playerState.favorite = v; });
   document.getElementById('comment-input').addEventListener('input', (e) => { playerState.comment = e.target.value; });

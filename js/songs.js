@@ -40,40 +40,56 @@ const SONGS_BY_GENRE = {
   ],
   'bandas-sonoras': [
     { title: 'Chim Chim Cher-ee', artist: 'Mary Poppins', era: '60s' },
+    { title: 'The Bare Necessities', artist: 'O Livro da Selva', era: '60s' },
     { title: 'The Rainbow Connection', artist: 'Kermit the Frog (The Muppet Movie)', era: '70s' },
+    { title: 'Pure Imagination', artist: 'A Fantástica Fábrica de Chocolate', era: '70s' },
     { title: 'Under the Sea', artist: 'A Pequena Sereia', era: '80s' },
+    { title: 'Never Ending Story', artist: 'Limahl (A História Sem Fim)', era: '80s' },
     { title: 'A Whole New World', artist: 'Aladdin', era: '90s' },
     { title: 'Hakuna Matata', artist: 'O Rei Leão', era: '90s' },
     { title: 'You\'ve Got a Friend in Me', artist: 'Randy Newman (Toy Story)', era: '90s' },
     { title: 'Married Life', artist: 'Michael Giacchino (Up - Altamente!)', era: 'y2k' },
+    { title: 'Into the West', artist: 'Annie Lennox (O Senhor dos Anéis)', era: 'y2k' },
     { title: 'Let It Go', artist: 'Idina Menzel (Frozen)', era: '2010s' },
     { title: 'Can\'t Stop the Feeling!', artist: 'Justin Timberlake (Trolls)', era: '2010s' },
     { title: 'How Far I\'ll Go', artist: 'Auli\'i Cravalho (Vaiana)', era: '2010s' },
     { title: 'Try Everything', artist: 'Shakira (Zootopia)', era: '2010s' },
     { title: 'We Don\'t Talk About Bruno', artist: 'Encanto', era: 'atual' },
+    { title: 'No Time to Die', artist: 'Billie Eilish (007)', era: 'atual' },
   ],
   pop: [
     { title: 'My Girl', artist: 'The Temptations', era: '60s' },
+    { title: 'Respect', artist: 'Aretha Franklin', era: '60s' },
     { title: 'Dancing Queen', artist: 'ABBA', era: '70s' },
+    { title: 'I Will Survive', artist: 'Gloria Gaynor', era: '70s' },
     { title: 'Billie Jean', artist: 'Michael Jackson', era: '80s' },
+    { title: 'Take On Me', artist: 'a-ha', era: '80s' },
     { title: 'Wannabe', artist: 'Spice Girls', era: '90s' },
+    { title: '...Baby One More Time', artist: 'Britney Spears', era: '90s' },
     { title: 'Hey Ya!', artist: 'OutKast', era: 'y2k' },
+    { title: 'Toxic', artist: 'Britney Spears', era: 'y2k' },
     { title: 'Happy', artist: 'Pharrell Williams', era: '2010s' },
     { title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', era: '2010s' },
     { title: 'Shape of You', artist: 'Ed Sheeran', era: '2010s' },
     { title: 'Flowers', artist: 'Miley Cyrus', era: 'atual' },
+    { title: 'As It Was', artist: 'Harry Styles', era: 'atual' },
   ],
   rock: [
     { title: 'Hey Jude', artist: 'The Beatles', era: '60s' },
+    { title: '(I Can\'t Get No) Satisfaction', artist: 'The Rolling Stones', era: '60s' },
     { title: 'Bohemian Rhapsody', artist: 'Queen', era: '70s' },
     { title: 'We Will Rock You', artist: 'Queen', era: '70s' },
     { title: 'Livin\' on a Prayer', artist: 'Bon Jovi', era: '80s' },
     { title: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', era: '80s' },
     { title: 'Eye of the Tiger', artist: 'Survivor', era: '80s' },
     { title: 'Smells Like Teen Spirit', artist: 'Nirvana', era: '90s' },
+    { title: 'Wonderwall', artist: 'Oasis', era: '90s' },
     { title: 'Mr. Brightside', artist: 'The Killers', era: 'y2k' },
+    { title: 'Seven Nation Army', artist: 'The White Stripes', era: 'y2k' },
     { title: 'Radioactive', artist: 'Imagine Dragons', era: '2010s' },
+    { title: 'Thunder', artist: 'Imagine Dragons', era: '2010s' },
     { title: 'Enemy', artist: 'Imagine Dragons, JID', era: 'atual' },
+    { title: 'Bones', artist: 'Imagine Dragons', era: 'atual' },
   ],
   classica: [
     { title: 'Eine kleine Nachtmusik', artist: 'Wolfgang Amadeus Mozart', era: 'all' },
@@ -97,8 +113,11 @@ const SONGS_BY_GENRE = {
   ],
   eletronica: [
     { title: 'Popcorn', artist: 'Hot Butter', era: '70s' },
+    { title: 'Autobahn', artist: 'Kraftwerk', era: '70s' },
     { title: 'Blue Monday', artist: 'New Order', era: '80s' },
+    { title: 'West End Girls', artist: 'Pet Shop Boys', era: '80s' },
     { title: 'Better Off Alone', artist: 'Alice Deejay', era: '90s' },
+    { title: 'Around the World', artist: 'Daft Punk', era: '90s' },
     { title: 'Sandstorm', artist: 'Darude', era: 'y2k' },
     { title: 'Strobe', artist: 'Deadmau5', era: 'y2k' },
     { title: 'Levels', artist: 'Avicii', era: '2010s' },
@@ -106,18 +125,25 @@ const SONGS_BY_GENRE = {
     { title: 'Titanium', artist: 'David Guetta ft. Sia', era: '2010s' },
     { title: 'Faded', artist: 'Alan Walker', era: '2010s' },
     { title: 'Miracle', artist: 'Calvin Harris & Ellie Goulding', era: 'atual' },
+    { title: 'I\'m Good (Blue)', artist: 'David Guetta & Bebe Rexha', era: 'atual' },
   ],
   latina: [
     { title: 'Guantanamera', artist: 'The Sandpipers', era: '60s' },
+    { title: 'Oye Como Va', artist: 'Tito Puente', era: '60s' },
     { title: 'El Cantante', artist: 'Héctor Lavoe', era: '70s' },
+    { title: 'Aguanile', artist: 'Héctor Lavoe', era: '70s' },
     { title: 'La Bamba', artist: 'Los Lobos', era: '80s' },
+    { title: 'Conga', artist: 'Gloria Estefan and Miami Sound Machine', era: '80s' },
     { title: 'Vivo Para Ella', artist: 'Marc Anthony', era: '90s' },
+    { title: 'Bailamos', artist: 'Enrique Iglesias', era: '90s' },
     { title: 'La Camisa Negra', artist: 'Juanes', era: 'y2k' },
+    { title: 'La Tortura', artist: 'Shakira ft. Alejandro Sanz', era: 'y2k' },
     { title: 'Despacito', artist: 'Luis Fonsi ft. Daddy Yankee', era: '2010s' },
     { title: 'Waka Waka', artist: 'Shakira', era: '2010s' },
     { title: 'Danza Kuduro', artist: 'Don Omar ft. Lucenzo', era: '2010s' },
     { title: 'Chantaje', artist: 'Shakira ft. Maluma', era: '2010s' },
     { title: 'TQG', artist: 'Karol G, Shakira', era: 'atual' },
+    { title: 'Ella Baila Sola', artist: 'Eslabon Armado, Peso Pluma', era: 'atual' },
   ],
 };
 
@@ -141,18 +167,31 @@ function eraHasSongs(genreId, eraId) {
   return list.some((s) => s.era === eraId || s.era === 'all');
 }
 
-/* Escolhe uma música do estilo + época, evitando repetir as últimas usadas
-   enquanto houver alternativas por ouvir. Se não houver nenhuma música
-   dessa época neste estilo, ignora a época e escolhe de todo o estilo. */
-function pickSong(genreId, eraId, recentlyUsedTitles, excludeTitle) {
+/* Todas as músicas deste estilo que servem para a época pedida (ou, se
+   nenhuma servir, todo o estilo — ver eraHasSongs para avisar o utilizador
+   desse caso). */
+function poolForGenreEra(genreId, eraId) {
   const list = SONGS_BY_GENRE[genreId] || [];
-  if (!list.length) return null;
-  let pool = list.filter((s) => s.era === eraId || s.era === 'all');
-  if (!pool.length) pool = list;
+  const matched = list.filter((s) => s.era === eraId || s.era === 'all');
+  return matched.length ? matched : list;
+}
+
+/* Há alguma música diferente de excludeTitle nesta combinação? Usado para
+   decidir se vale a pena mostrar o botão "sugerir outra". */
+function hasAlternative(genreId, eraId, excludeTitle) {
+  return poolForGenreEra(genreId, eraId).some((s) => s.title !== excludeTitle);
+}
+
+/* Escolhe uma música do estilo + época, evitando repetir as já usadas
+   enquanto houver alternativas por ouvir; quando todas já foram usadas,
+   recomeça o ciclo. */
+function pickSong(genreId, eraId, usedTitles, excludeTitle) {
+  const pool = poolForGenreEra(genreId, eraId);
+  if (!pool.length) return null;
 
   let filtered = pool.filter((s) => s.title !== excludeTitle);
   if (!filtered.length) filtered = pool;
-  let fresh = filtered.filter((s) => !recentlyUsedTitles.includes(s.title));
+  let fresh = filtered.filter((s) => !usedTitles.includes(s.title));
   if (!fresh.length) fresh = filtered;
   return fresh[Math.floor(Math.random() * fresh.length)];
 }

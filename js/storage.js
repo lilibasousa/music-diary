@@ -32,11 +32,11 @@ const Storage = {
   getFavorites() {
     return Storage.getEntries().filter((e) => e.favorite);
   },
-  /* Títulos usados recentemente no mesmo estilo, para variar as sugestões. */
-  recentTitlesForGenre(genreId, limit) {
+  /* Todos os títulos já usados neste estilo, para não repetir uma música
+     enquanto houver outra por ouvir (ver pickSong em songs.js). */
+  usedTitlesForGenre(genreId) {
     return Storage.getEntries()
       .filter((e) => e.genre === genreId)
-      .slice(0, limit)
       .map((e) => e.title);
   },
 };

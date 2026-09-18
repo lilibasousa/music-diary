@@ -26,9 +26,9 @@ Tocar uma música específica dentro da página, sem pedir nada ao utilizador, e
 
 1. **Dados guardados só no telemóvel/browser** (`localStorage`), sem servidor nem login. Se limpares os dados do browser, perdes o histórico — não há sincronização entre dispositivos.
 2. **Uma entrada por dia**: escolher uma nova música substitui a avaliação desse dia; dias diferentes ficam sempre no histórico.
-3. **Sugestões variadas**: a lista de músicas por estilo evita repetir as últimas usadas nesse estilo antes de repetir.
+3. **Sem repetições até esgotar as opções**: cada estilo+época só volta a sugerir uma música já usada depois de todas as outras dessa combinação já terem sido ouvidas. O botão "sugerir outra" só aparece quando há de facto uma alternativa diferente para mostrar.
 4. **Época por música, não por app**: algumas músicas (ex.: canções de embalar tradicionais, clássicos instrumentais) são atemporais e aparecem em qualquer época escolhida.
-4. **Sem dependências, sem `npm install`, sem build.** Os únicos pedidos à internet são as fontes (Google Fonts) e, ao tocar, o YouTube/Spotify — se não houver internet, a app continua a funcionar com uma fonte alternativa do sistema (a escolha/avaliação de músicas não precisa de rede).
+5. **Sem dependências, sem `npm install`, sem build.** Os únicos pedidos à internet são as fontes (Google Fonts) e, ao tocar, o YouTube/Spotify — se não houver internet, a app continua a funcionar com uma fonte alternativa do sistema (a escolha/avaliação de músicas não precisa de rede).
 
 ## Estrutura
 
