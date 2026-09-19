@@ -102,7 +102,8 @@ textarea, input { font-family: inherit; }
   font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; width: 100%; text-decoration: none;
 }
 .btn-secondary svg { width: 16px; height: 16px; }
-.btn-ghost { background: none; border: none; color: var(--text-secondary); font-size: 13px; font-weight: 600; text-align: center; width: 100%; padding: 10px; }
+.btn-ghost { display: flex; align-items: center; justify-content: center; gap: 6px; background: none; border: none; color: var(--text-secondary); font-size: 13px; font-weight: 600; text-align: center; width: 100%; padding: 10px; }
+.btn-ghost svg { width: 15px; height: 15px; flex-shrink: 0; }
 
 .section-divider { height: 1px; background: var(--border); width: 100%; margin: 4px 0; }
 .hint-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin: 0; }
