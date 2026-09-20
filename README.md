@@ -12,7 +12,7 @@ App web para o ritual de mostrar uma música nova ao teu filho todos os dias ant
 
 ## Como funciona
 
-1. **Escolher o estilo** — Infantil, Bandas sonoras, Pop, Rock, Clássica, Jazz, Eletrónica ou Latina.
+1. **Escolher o estilo** — Infantil, Metal, Pop, Rock, Clássica, Jazz, Eletrónica ou Latina.
 2. **Escolher a época** — Anos 60, 70, 80, 90, Y2K (2000s), Anos 2010 ou Atual. Se não houver nenhuma música dessa época no estilo escolhido, a app avisa e sugere outra época do mesmo estilo.
 3. **Sugestão de música** — a app escolhe uma música desse estilo e época (evitando repetir as últimas usadas) e mostra dois botões para a tocar: **YouTube** ou **Spotify**, que abrem a busca dessa música na app/site respetivo. Há também um botão para pedir outra sugestão.
 4. **Avaliar** — depois de ouvirem, dão de 1 a 5 estrelas, podem escrever um comentário e marcar a música como favorita.
